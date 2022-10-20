@@ -1,13 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Workshop } from './workshop.entity';
 
 @Entity()
 export class Event {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column({ type: 'datetime' })
-    createdAt: string;
+  @Column({ type: 'datetime' })
+  createdAt: string;
+
+  @OneToMany(() => Workshop, (workshop) => workshop.event)
+  @JoinColumn()
+  workshops: Workshop[];
 }
